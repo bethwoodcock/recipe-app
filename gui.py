@@ -1,9 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
 
-def hello(e):
-    print("Hello")
-
 #window
 root = Tk()
 root.title('Recipe App')
@@ -15,9 +12,12 @@ root.resizable(False,False)
 img = PhotoImage(file='logo.png')
 Label(root,image=img,bg='#FFCD29').place(x=50,y=50)
 
-#ingredient frame
-frame=Frame(root,width=300,height=35,bg="white")
-frame.place(x=38, y=300)
+#ingredient entry
+user = Entry(width=32,fg="black", border=2,bg="white",font=('Arial',12,'bold',))
+user.place(x=38, y=300)
+user.insert(0,'Type Ingredient Here')
+
+
 
 #run
 root.mainloop()
