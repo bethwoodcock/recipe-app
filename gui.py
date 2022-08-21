@@ -41,6 +41,8 @@ user.bind('<FocusIn>', on_enter)
 user.bind('<FocusOut>', on_leave)
 
 #Lets Eat Button
+
+
 eat = Button(width=41,pady=7,text='Lets Eat!',bg='#00B3F0',fg='white', border=0,cursor='hand2', command=lambda: query_recipes(textbox.get())).place(x=38, y=400)
 
 #Info Frame
