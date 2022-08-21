@@ -1,5 +1,4 @@
 from tkinter import *
-import requests
 
 # ID set is used to ensure all recipes have unique ID
 APP_ID = "18002c98"
@@ -30,7 +29,6 @@ def on_leave(e):
     if name=='':
         user.insert(0, 'Type Ingredient Here')
 
-food = StringVar()
 user = Entry(root, textvariable=food, width=32,fg="black", border=1,bg="white",font=('Arial',12,'bold',))
 user.place(x=38, y=300)
 user.insert(0,'Type Ingredient Here')
