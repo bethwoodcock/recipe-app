@@ -9,7 +9,7 @@ root.configure(bg="#FFCD29")
 root.resizable(False,False)
 
 #Eat Click
-def Eat():
+def Query():
     window=Toplevel(root)
     window.title("Results")
     window.geometry('375x667')
@@ -35,7 +35,13 @@ user.bind('<FocusIn>', on_enter)
 user.bind('<FocusOut>', on_leave)
 
 #Lets Eat Button
-eat=Button(width=41,pady=7,text='Lets Eat!',bg='#00B3F0',fg='white',command=Eat,border=0,cursor='hand2').place(x=38, y=400)
+eat=Button(width=41,pady=7,text='Lets Eat!',bg='#00B3F0',fg='white',command=Query,border=0,cursor='hand2').place(x=38, y=400)
+
+#Info Frame
+lower_frame = Frame(root,bg='#00B3F0',bd=10)
+lower_frame.place(x=38, y=450, relwidth=0.78,relheight=0.3)
+label = Label(lower_frame)
+label.place(relwidth=1,relheight=1)
 
 #run
 root.mainloop()
