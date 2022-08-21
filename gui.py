@@ -1,5 +1,11 @@
 from tkinter import *
+import requests
 from tkinter import messagebox
+
+# ID set is used to ensure all recipes have unique ID
+APP_ID = "18002c98"
+API_KEY = "46c5a4350bb1b9adaa4e67d27f703c01"
+URL = f'https://api.edamam.com/search?/app_id=${APP_ID}&app_key=${API_KEY}'
 
 #window
 root = Tk()
@@ -35,7 +41,7 @@ user.bind('<FocusIn>', on_enter)
 user.bind('<FocusOut>', on_leave)
 
 #Lets Eat Button
-eat=Button(width=41,pady=7,text='Lets Eat!',bg='#00B3F0',fg='white',command=Query,border=0,cursor='hand2').place(x=38, y=400)
+eat = Button(width=41,pady=7,text='Lets Eat!',bg='#00B3F0',fg='white', border=0,cursor='hand2', command=lambda: query_recipes(textbox.get())).place(x=38, y=400)
 
 #Info Frame
 lower_frame = Frame(root,bg='#00B3F0',bd=10)
