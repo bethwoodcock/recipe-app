@@ -16,7 +16,11 @@ root.resizable(False,False)
 img = PhotoImage(file='logo.png')
 Label(root,image=img,bg='#FFCD29').place(x=50,y=50)
 
-
+def get_recipe():
+    recipe = food.get()
+    print(recipe)
+    display.delete(1.0, END)
+    display.insert(1.0,recipe)
 
 #ingredient entry
 def on_enter(e):
@@ -32,26 +36,6 @@ user.place(x=38, y=300)
 user.insert(0,'Type Ingredient Here')
 user.bind('<FocusIn>', on_enter)
 user.bind('<FocusOut>', on_leave)
-
-def get_recipe():
-    response = None
-    success = False
-    index = 0
-    while not success:
-        print("Please enter a keyword")
-        key_word = input("\t>> ")
-        data = make_request(get_url_q(key_word))
-        data = data['hits']
-        if len(data) > 0:
-            success = True
-        else:
-            print(f'0 results for "{key_word}"')
-            input("")
-    index = display_recipe_labels(data, index)
-
-
-    display.delete(1.0, END)
-    display.insert(1.0,recipe)
 
 #Lets Eat Button
 eat_button = Button(width=41,pady=7,text='Lets Eat!',bg='#00B3F0',fg='white', border=0,cursor='hand2', command=get_recipe)

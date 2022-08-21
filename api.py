@@ -1,5 +1,4 @@
 import requests
-from random import randint
 
 
 # ID set is used to ensure all recipes have unique ID
