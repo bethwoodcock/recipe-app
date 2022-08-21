@@ -56,9 +56,9 @@ class RecipeApp(object):
                                        command=__open_link)
         self.recipe_button.grid(column=1, row=7, pady=10)
 
-    def __get_recipe(self, query):
+    def __get_recipe(self, variable):
         edamam_object = PyEdamam(recipes_appid=self.recipe_app_id, recipes_appkey=self.recipe_app_key)
-        query_result = edamam_object.search_recipe(query)
+        query_result = edamam_object.search_recipe(variable)
 
         # Get first recipe in list
         for recipe in query_result:
@@ -96,8 +96,8 @@ class RecipeApp(object):
 # Create App and run the app
 if __name__ == "__main__":
     # API Keys
-    APP_ID = ""  # Put your app id for edamam api
-    APP_KEY = ""  # Put your app key for edamam api
+    APP_ID = "18002c98"
+    APP_KEY = "46c5a4350bb1b9adaa4e67d27f703c01"
 
     recipe_app = RecipeApp(APP_ID, APP_KEY)
     recipe_app.run_app()
