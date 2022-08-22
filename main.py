@@ -49,19 +49,23 @@ root.resizable(False, False)
 recipe = StringVar()
 recipe_input = Entry(root, textvariable=recipe, width=32, fg="black", border=1, bg="white",
                       font=('Arial', 12, 'bold',))
-recipe_input.place(x=38, y=300)
-recipe_input.insert(0, 'Choose your Recipe')
+recipe_input.place(x=38, y=150)
+recipe_input.insert(0, 'Enter an Ingredient')
 recipe_input.bind('<FocusIn>', on_enter)
 recipe_input.bind('<FocusOut>', on_leave)
 
 # Search button
 search_button = Button(width=41, pady=7, text='Search Recipes', bg='#00B3F0', fg='white', border=0, cursor='hand2',
                        command=get_description)
-search_button.place(x=38, y=400)
+search_button.place(x=38, y=180)
 
 # Info Frame
 display = Text(root)
-display.place(x=38, y=450, relwidth=0.78, relheight=0.3)
+display.place(x=38, y=222, relwidth=0.78, relheight=0.6)
+
+#change4life image
+img = tk.PhotoImage(file='logo.png')
+tk.Label(root,image=img,bg='#FFCD29').place(x=108,y=20)
 
 # run
 root.mainloop()
