@@ -20,17 +20,10 @@ def on_leave(e):
 
 
 def search_recipe(name: str):
-    result = requests.get('https://api.edamam.com/search?q={}&app_id={}&app_key={}'.format(recipe_input, APP_ID, API_KEY))
-    data = result.json()
-    return data['hits']
+    result = requests.get('https://api.edamam.com/search?q={}&app_id={}&app_key={}'.format(recipe_input, APP_ID, API_KEY)).json()
+    return result['hits']
 
-def display_recipe_labels(data, index):
-    print()
-    for recipe in data:
-        index += 1
-        print(f"   {index})", recipe['recipe']['label'])
-    print()
-    return index
+#result = re.sub(edamam[r"hits", 'Label','url']) ??? - but does this only return the text and not json?
 
 
 def get_description():
