@@ -20,16 +20,11 @@ def on_leave(e):
 
 
 def search_recipe(name: str):
-    json_response = requests.get(f"{API_URL}").json()
-    flavor_text = json_response["flavor_text_entries"][0]["flavor_text"]
-    flavor_text = display_recipe_labels(data, index)
-    return flavor_text
+    result = requests.get('https://api.edamam.com/search?q={}&app_id={}&app_key={}'.format(recipe_input, APP_ID, API_KEY))
+    data = result.json()
+    return data['hits']
 
 def display_recipe_labels(data, index):
-    """
-    Displays all recipe labels from a result of request.
-    Returns the max index of list of recipes.
-    """
     print()
     for recipe in data:
         index += 1
