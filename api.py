@@ -1,10 +1,11 @@
 import requests
+from random import randint
 
 
 # ID set is used to ensure all recipes have unique ID
 APP_ID = "18002c98"
 API_KEY = "46c5a4350bb1b9adaa4e67d27f703c01"
-URL = f'https://api.edamam.com/search?/app_id=${APP_ID}&app_key=${API_KEY}f&q=${search_recipe}'
+URL = f'https://api.edamam.com/search?/app_id=${APP_ID}&app_key=${API_KEY}'
 
 """
 ============================================================================
@@ -60,6 +61,17 @@ def query_recipes():
     index = display_recipe_labels(data, index)
     print(f"   Select Recipe # (1-{index})\n   (enter 'm' to see more)")
     select = select_from_index(index)
+    # Allows user to request 20 more recipes with same keyword
+    if select == 'm' and index == 20:
+        _from = 20
+        to = 40
+        data2 = make_request(get_url_q(key_word, _from, to))
+        data2 = data2['hits']
+        index = display_recipe_labels(data2, index)
+        # join the data of both requests together
+        data += data2
+        # selection has not yet been made
+        select = -1
     select_recipe(data, index, select)
 
 
