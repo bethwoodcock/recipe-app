@@ -1,7 +1,5 @@
-import re
 import tkinter as tk
 from tkinter import Tk, StringVar, Entry, Button, Text
-import json
 
 import requests
 
@@ -33,7 +31,7 @@ def search_recipe(name: str):
 #for recipe in data
 
 def get_description():
-    flavor_text = search_recipe(recipe_input.get().lower())
+    flavor_text = search_recipe(recipe_input.get())
     display.delete(1.0, tk.END)
     display.insert(tk.END, flavor_text)
 

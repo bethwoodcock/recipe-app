@@ -57,7 +57,7 @@ def query_recipes():
             success = True
         else:
             print(f'0 results for "{key_word}"')
-            input("")
+
     index = display_recipe_labels(data, index)
     print(f"   Select Recipe # (1-{index})\n   (enter 'm' to see more)")
     select = select_from_index(index)
@@ -94,16 +94,18 @@ def select_recipe(data, max_index, select):
             select = int(select)
             invalid = False
         except ValueError:
-            invalid = True
+            invalid = True2
             select = -1
 
     recipe_response = data[select]
     recipe = recipe_response["recipe"]
     curr_recipe = filter_response(recipe)
 
+
     display_recipe_dict(curr_recipe)
     if input("Would you like to save? (y/n) ") == 'y':
-        save_recipe(curr_recipe)
+        save_recipe_to_file(curr_recipe)
+        print("The recipe has been saved.")
     else:
         print()
         print("1) Select another recipe")
@@ -123,13 +125,11 @@ def display_recipe_labels(data, index):
     print()
     for recipe in data:
         index += 1
-        print(
+        print(f"   {index})", recipe['recipe']['label'])
     print()
     return index
 
 
-def save_recipe(curr_recipe):
-    pass
 
 
 """
@@ -209,6 +209,30 @@ def display_recipe_dict(curr_recipe):
     input()
 
 
+def save_recipe_to_file(curr_recipe):
+    recipe_text = []
+    """
+    Displays dictionary curr_recipe.
+    Dictionary curr_recipe keys include:
+        - "ingredients_line"
+        - "ingredients"
+        - "label"
+        - "url"
+    """
+    recipe_text.append("====================================================")
+    recipe_text.append(f"{curr_recipe['label']}:")
+    recipe_text.append("----------------------------------------------------")
+    for line in curr_recipe["ingredients_line"]:
+        recipe_text.append(f"    - {line}")
+    recipe_text.append("")
+    recipe_text.append(f"Directions: {curr_recipe['url']}")
+    recipe_text.append("====================================================")
+    # input()
+
+    with open(f"{curr_recipe['label']}.txt", 'w') as recipe_file:
+        for i in recipe_text:
+            recipe_file.write("%s\n" % i)
+
 """
 ============================================================================
 MAKE REQUESTS:
@@ -230,8 +254,8 @@ def get_url_q(key_word, _from=0, to=20):
     return url
 
 
-def get_url_r(uri):
-    return URL + f'&r={uri}'
+# def get_url_r(uri):
+#     return URL + f'&r={uri}'
 
 
 main()
