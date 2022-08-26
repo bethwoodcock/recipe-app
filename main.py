@@ -1,6 +1,7 @@
 import re
 import tkinter as tk
 from tkinter import Tk, StringVar, Entry, Button, Text
+import json
 
 import requests
 
@@ -21,16 +22,10 @@ def on_leave(e):
 
 def search_recipe(name: str):
     result = requests.get(f'https://api.edamam.com/search?q={recipe_input}&app_id={APP_ID}&app_key={API_KEY}').json()
-    data = result['hits']
-    for recipe in data:
-    'recipe'[0] = {
-        'label':
-            {
-            }
-    }
+    return result['hits'][0]['recipe']['label']
 
 
-#result = re.sub(edamam[r"hits", 'Label','url']) ??? - but does this only return the text and not json?
+
 #PARSING - what do we have / what do we want? f"   {index})", recipe['recipe']['label']) /
 #Start ONE thing , then filter it back
 
@@ -39,11 +34,8 @@ def search_recipe(name: str):
 
 def get_description():
     flavor_text = search_recipe(recipe_input.get().lower())
-    #Yan's code here to do search and filtering [run her code - insert it each time 'display.insert'
     display.delete(1.0, tk.END)
     display.insert(tk.END, flavor_text)
-    #can insert line by line
-    #OR create a string for output. \n for a string so it can all be inserted.
 
 
 # window

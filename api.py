@@ -123,7 +123,7 @@ def display_recipe_labels(data, index):
     print()
     for recipe in data:
         index += 1
-        print(f"   {index})", recipe['recipe']['label'])
+        print(
     print()
     return index
 
