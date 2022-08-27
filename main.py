@@ -1,6 +1,6 @@
+import re
 import tkinter as tk
 from tkinter import Tk, StringVar, Entry, Button, Text
-
 import requests
 
 APP_ID = "18002c98"
@@ -18,9 +18,11 @@ def on_leave(e):
         recipe_input.insert(0, 'Enter Your Ingredient')
 
 
-def search_recipe(name: str):
+def search_recipe(recipe_input: str):
     result = requests.get(f'https://api.edamam.com/search?q={recipe_input}&app_id={APP_ID}&app_key={API_KEY}').json()
-    return result['hits'][0]['recipe']['label']
+    flavor_text = result['hits'][0]['recipe']['label']
+    flavor_text = re.sub(r"[\n\s]", " ", flavor_text)
+    return flavor_text
 
 
 
