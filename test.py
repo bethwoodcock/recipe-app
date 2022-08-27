@@ -1,63 +1,58 @@
-# imports
-import tkinter
+import re
+import tkinter as tk
+from tkinter import Tk, StringVar, Entry, Button, Text
+
 import requests
-APP_ID = "18002c98"
-API_KEY = "46c5a4350bb1b9adaa4e67d27f703c01"
-URL = f'https://api.edamam.com/search?/app_id=${APP_ID}&app_key=${API_KEY}&q={city}'
 
-# inistialise a window
-root = tkinter.Tk()
+API_URL = "https://pokeapi.co/api/v2/pokemon-species/"
 
-# title
-root.title('Recipe')
 
-# geometry
-# root.geometry('365x100')
+def on_enter(e):
+    pokemon_input.delete(0, 'end')
 
-def get_city_weather():
-    try:
-        city = my_city.get()
-        api_call = f'https://api.edamam.com/search?/app_id=${APP_ID}&app_key=${API_KEY}&q={city}'
-        data = make_request(get_url_q(my_city))
-        data = data['hits']
-        display.delete('1.0',tkinter.END)
-        display.insert('1.0',my_weather)
-    except KeyError:
-        message = 'PLease enter a valid food name'
-        display.delete('1.0',tkinter.END)
-        display.insert('1.0',message)
 
-def make_request(url):
-    """
-    Returns a request response from a given URL.
-    """
-    response = requests.get(url)
-    data = response.json()
-    return data
+def on_leave(e):
+    name = pokemon_input.get()
+    if name == '':
+        pokemon_input.insert(0, 'Choose your Pokémon')
 
-def get_url_q(my_city, _from=0, to=20):
-    url = URL + f'&q=${my_city}&to={to}&from={_from}'
-    return url
 
-def get_url_r(uri):
-    return URL + f'&r={uri}'
+def search_pokemon(name: str):
+    json_response = requests.get(f"{API_URL}{name}").json()
+    flavor_text = json_response["flavor_text_entries"][0]["flavor_text"]
+    flavor_text = re.sub(r"[\n\s]", " ", flavor_text)
+    return flavor_text
 
-# label
-city_label = tkinter.Label(root, text='City Name')
-city_label.grid(row=0,column=0)
 
-# entry
-my_city=tkinter.StringVar()
-city_entry = tkinter.Entry(root, textvariable=my_city)
-city_entry.grid(row=0, column=1)
+def get_description():
+    flavor_text = search_pokemon(pokemon_input.get().lower())
+    display.delete(1.0, tk.END)
+    display.insert(tk.END, flavor_text)
 
-# button
-my_button = tkinter.Button(root, text='Submit', command=get_city_weather)
-my_button.grid(row=0, column=2)
 
-# display
-display = tkinter.Text(root, height=4, width=45)
-display.grid(row=1,column=0, columnspan=3)
+# window
+root = Tk()
+root.title('Recipe App')
+root.geometry('375x667')
+root.configure(bg="#FFCD29")
+root.resizable(False, False)
 
-# mainloop
+pokemon = StringVar()
+pokemon_input = Entry(root, textvariable=pokemon, width=32, fg="black", border=1, bg="white",
+                      font=('Arial', 12, 'bold',))
+pokemon_input.place(x=38, y=300)
+pokemon_input.insert(0, 'Choose your Pokémon')
+pokemon_input.bind('<FocusIn>', on_enter)
+pokemon_input.bind('<FocusOut>', on_leave)
+
+# Search button
+search_button = Button(width=41, pady=7, text='Search Pokémon', bg='#00B3F0', fg='white', border=0, cursor='hand2',
+                       command=get_description)
+search_button.place(x=38, y=400)
+
+# Info Frame
+display = Text(root)
+display.place(x=38, y=450, relwidth=0.78, relheight=0.3)
+
+# run
 root.mainloop()

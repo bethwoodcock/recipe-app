@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import Tk, StringVar, Entry, Button, Text
 import requests
 
+
 APP_ID = "18002c98"
 API_KEY = "46c5a4350bb1b9adaa4e67d27f703c01"
 API_URL = f'https://api.edamam.com/search?/app_id=${APP_ID}&app_key=${API_KEY}'
