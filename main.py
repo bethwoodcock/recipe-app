@@ -20,9 +20,8 @@ def on_leave(e):
 
 def search_recipe(recipe_input: str):
     result = requests.get(f'https://api.edamam.com/search?q={recipe_input}&app_id={APP_ID}&app_key={API_KEY}').json()
-    flavor_text = result['hits'][0]['recipe']['label']
+    flavor_text = result['hits'][0]['recipe']['label'],result['hits'][1]['recipe']['label'],result['hits'][2]['recipe']['label'],result['hits'][3]['recipe']['label'],result['hits'][4]['recipe']['label'],result['hits'][5]['recipe']['label'],result['hits'][6]['recipe']['label'],result['hits'][7]['recipe']['label'],result['hits'][8]['recipe']['label'],result['hits'][9]['recipe']['label']
     return flavor_text
-
 
 
 #PARSING - what do we have / what do we want? f"   {index})", recipe['recipe']['label']) /
