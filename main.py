@@ -21,7 +21,6 @@ def on_leave(e):
 def search_recipe(recipe_input: str):
     result = requests.get(f'https://api.edamam.com/search?q={recipe_input}&app_id={APP_ID}&app_key={API_KEY}').json()
     flavor_text = result['hits'][0]['recipe']['label']
-    flavor_text = re.sub(r"[\n\s]", " ", flavor_text)
     return flavor_text
 
 
