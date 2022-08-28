@@ -1,41 +1,28 @@
-import re
 import tkinter as tk
 from tkinter import Tk, StringVar, Entry, Button, Text
 import requests
-
 
 APP_ID = "18002c98"
 API_KEY = "46c5a4350bb1b9adaa4e67d27f703c01"
 API_URL = f'https://api.edamam.com/search?/app_id=${APP_ID}&app_key=${API_KEY}'
 
-
 def on_enter(e):
     recipe_input.delete(0, 'end')
-
 
 def on_leave(e):
     name = recipe_input.get()
     if name == '':
         recipe_input.insert(0, 'Enter Your Ingredient')
 
-
 def search_recipe(recipe_input: str):
     result = requests.get(f'https://api.edamam.com/search?q={recipe_input}&app_id={APP_ID}&app_key={API_KEY}').json()
     flavor_text = result['hits'][0]['recipe']['label'],result['hits'][1]['recipe']['label'],result['hits'][2]['recipe']['label'],result['hits'][3]['recipe']['label'],result['hits'][4]['recipe']['label'],result['hits'][5]['recipe']['label'],result['hits'][6]['recipe']['label'],result['hits'][7]['recipe']['label'],result['hits'][8]['recipe']['label'],result['hits'][9]['recipe']['label']
     return flavor_text
 
-
-#PARSING - what do we have / what do we want? f"   {index})", recipe['recipe']['label']) /
-#Start ONE thing , then filter it back
-
-#loop through the data, get each label, each ingredients, 'ingredientLines' - save this to another variable, display this. hits.legnth?
-#for recipe in data
-
 def get_description():
     flavor_text = search_recipe(recipe_input.get())
     display.delete(1.0, tk.END)
     display.insert(tk.END, flavor_text)
-
 
 # window
 root = Tk()
